@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml"
+						xmlns:li="list.*"
+						layout="vertical">
+
+
+	<mx:Script>
+		<![CDATA[
+			import mx.events.ItemClickEvent;
+			
+			private var previousIndex:int = 0;
+
+			private function doSwap(event:ItemClickEvent):void
+			{
+				if( event.index != previousIndex )
+				{
+					previousIndex = event.index;
+					file_selector_canvas.swapChildren(flist, fgrid)
+				}
+			}
+		]]>
+	</mx:Script>
+
+	<mx:HBox width="100%" height="100%">
+		<mx:FileSystemTree id="ftree"
+						   directory="{File.userDirectory}"
+						   enumerationMode="directoriesOnly"
+						   width="100%"
+						   height="100%"
+						   
+						   itemClick="flist.directory=ftree.selectedItem as File; fgrid.directory=ftree.selectedItem as File"/>
+	
+		<mx:VBox width="100%" height="100%">
+			<mx:ToggleButtonBar id="viewToggle" itemClick="doSwap(event)">
+				<mx:dataProvider>
+					<mx:String>simple</mx:String>
+					<mx:String>advanced</mx:String>
+				</mx:dataProvider>
+			</mx:ToggleButtonBar>
+
+			<mx:Canvas id="file_selector_canvas" width="100%" height="100%">
+				<mx:FileSystemDataGrid id="fgrid"
+									   allowMultipleSelection="true"
+									   directory="{ftree.directory}"
+									   dragEnabled="true"
+									   enumerationMode="filesOnly"
+									   width="100%"
+									   height="100%" />
+
+				<mx:FileSystemList id="flist"
+								   allowMultipleSelection="true"
+								   directory="{ftree.directory}"
+								   dragEnabled="true"
+								   enumerationMode="filesOnly"
+								   width="100%"
+								   height="100%" />
+			</mx:Canvas>
+		</mx:VBox>
+	</mx:HBox>
+	
+	
+	<!-- Never got around to doing selection in a ComboBox this way. -->
+	<!--mx:ComboBox id="cb"
+				 dropdownFactory="{new ClassFactory(FileDropList)}"
+				 width="100%"
+				 nativeDragOver="cb.open()">
+		<mx:dataProvider>
+			<mx:ArrayCollection>
+					<mx:String>Item 1</mx:String>
+					<mx:String>Item 2</mx:String>
+					<mx:String>Item 3</mx:String>
+					<mx:String>Item 4</mx:String>
+					<mx:String>Item 5</mx:String>
+					<mx:String>Item 6</mx:String>
+					<mx:String>Item 7</mx:String>
+					<mx:String>Item 8</mx:String>
+					<mx:String>Item 9</mx:String>
+					<mx:String>Item 10</mx:String>
+				</mx:ArrayCollection>
+		</mx:dataProvider>
+	</mx:ComboBox-->
+	
+	
+	<mx:HBox width="100%" height="100%">
+		<li:FileDropList id="item_list"
+						 width="100%"
+						 height="100%"
+						 something="actionText.text += event.action">
+			<li:dataProvider>
+				<mx:ArrayCollection>
+					<mx:String>Item 1</mx:String>
+					<mx:String>Item 2</mx:String>
+					<mx:String>Item 3</mx:String>
+					<mx:String>Item 4</mx:String>
+					<mx:String>Item 5</mx:String>
+					<mx:String>Item 6</mx:String>
+					<mx:String>Item 7</mx:String>
+					<mx:String>Item 8</mx:String>
+					<mx:String>Item 9</mx:String>
+					<mx:String>Item 10</mx:String>
+				</mx:ArrayCollection>	
+			</li:dataProvider>
+		</li:FileDropList>
+		
+		<mx:TextArea id="actionText"
+					 editable="false"
+					 width="100%"
+					 height="100%" />
+	</mx:HBox>
+
+</mx:WindowedApplication>

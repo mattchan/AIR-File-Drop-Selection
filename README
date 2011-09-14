@@ -1,0 +1,10 @@
+This was an experiment (an incomplete one at that) for performing drag-and-drop
+of files into an Adobe AIR application and taking some action on the file. The
+concept of the "action" is abstract in this project; they are just items in a
+list but can represent whatever you want. Files can be dragged from the desktop
+or within the AIR file system browser.
+
+Things that were never completed:
+ * Scrolling when you drag an item into the list
+ * ComboBox control alternative. It opens when you drag over, but there is no
+   handler for the drop or doing the selection thereafter.
